@@ -1,3 +1,6 @@
+
+<p>This Project is Role-Based-Access-Control(RBAC) System built using Spring Boot and MongoDB. It includes user authentication and role-based access controlwith distinct user roles such as Admin, User, and Moderator. The system leverages Spring Security for secure API endpoints and password encryption using BCrypt. MongoDB ensures secure data storage with unique constraints and error handling for duplicate entries.</p>
+
 <h4>I have created 4 main Controllers</h2>
 <ol>
   <li>AuthController: It contains two APIs for one for SignUp and Second one for Signin. User Can Signup with their name, email, password and also can assing role to their account by default it takes a User as Role.
