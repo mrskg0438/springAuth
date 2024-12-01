@@ -6,13 +6,16 @@ import com.jwtauth.jwtAuth.response.MessageResponse;
 import com.jwtauth.jwtAuth.service.AuthService;
 import com.jwtauth.jwtAuth.service.UserDetailServiceImpl;
 import com.jwtauth.jwtAuth.utils.JWTUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -78,6 +81,15 @@ public class AuthController {
         }
 
     }
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        jwtUtils.blacklistToken(token);
+        return ResponseEntity.ok("Logged out successfully!");
+    }
+
 
 
 

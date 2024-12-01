@@ -10,6 +10,8 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class JWTUtils {
@@ -58,4 +60,15 @@ public class JWTUtils {
     public Boolean validateToken(String token) {
         return !isTokenExpired(token);
     }
+    private final Set<String> blacklistedTokens = ConcurrentHashMap.newKeySet();
+
+    public void blacklistToken(String token) {
+        blacklistedTokens.add(token);
+    }
+
+    public boolean isTokenBlacklisted(String token) {
+        return blacklistedTokens.contains(token);
+    }
+
+
 }

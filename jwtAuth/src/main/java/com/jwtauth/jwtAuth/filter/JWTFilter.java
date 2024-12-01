@@ -32,6 +32,11 @@ public class JWTFilter extends OncePerRequestFilter {
         String jwt = null;
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
+            if (jwtUtils.isTokenBlacklisted(jwt)) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);  // Return 401 if token is blacklisted
+                response.getWriter().write("Token is blacklisted. Please log in again.");
+                return;
+            }
             username = jwtUtils.extractUsername(jwt);
         }
         if (username != null) {

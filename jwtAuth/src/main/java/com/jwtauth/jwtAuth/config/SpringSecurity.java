@@ -40,14 +40,9 @@ public class SpringSecurity {
                                 .requestMatchers("/user/**").hasAnyRole("ADMIN", "USER", "MODERATOR")
                                 .requestMatchers("/mod/**").hasAnyRole("ADMIN", "MODERATOR")
                                 .anyRequest().permitAll()
-//
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-
-
-
         return http.build();
     }
 
